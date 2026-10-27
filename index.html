@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GudangKonten.my.id — Pusat Alat Konten Kreator AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER / NAVIGASI ATAS -->
+    <header>
+        <div class="logo-area">
+            <h1><i class="fa-solid fa-box-archive"></i> GUDANG KONTEN</h1>
+            <p>Pusat Alat & Sumber Daya Konten Kreator</p>
+        </div>
+    </header>
+
+    <!-- KONTEN UTAMA / DASHBOARD MENU -->
+    <main class="container">
+        <div class="welcome-banner">
+            <h2>Selamat Datang, Kreator! 👋</h2>
+            <p>Pilih alat otomasi di bawah untuk mempercepat alur produksi kontenmu hari ini.</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- 1. Generator Narasi & Quotes -->
+            <div class="card menu-card" onclick="location.href='generator.html'">
+                <div class="icon-box" style="background: rgba(255, 204, 0, 0.15); color: #ffcc00;">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3>Generator Narasi & Quotes</h3>
+                <p>Buat teks visual puitis, skrip narasi voiceover, arahan B-Roll, caption, dan metadata SEO dari satu ide.</p>
+                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 2. Studio Suara (TTS) -->
+            <div class="card menu-card" onclick="location.href='tts.html'">
+                <div class="icon-box" style="background: rgba(0, 204, 255, 0.15); color: #00ccff;">
+                    <i class="fa-solid fa-headphones"></i>
+                </div>
+                <h3>Studio Suara (TTS)</h3>
+                <p>Ubah teks narasi menjadi suara AI berkualitas tinggi dengan pilihan karakter suara (Enzo, Riko, dll) dan atur suasananya.</p>
+                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 3. Hook & Title Generator (Baru) -->
+            <div class="card menu-card" onclick="location.href='hook.html'">
+                <div class="icon-box" style="background: rgba(255, 77, 77, 0.15); color: #ff4d4d;">
+                    <i class="fa-solid fa-anchor"></i>
+                </div>
+                <h3>Hook & Title Generator</h3>
+                <p>Racik 3 detik pertama video (Hook) yang mematikan dan judul bombastis untuk menghentikan orang scrolling.</p>
+                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 4. Multi-Platform Transformer (Baru) -->
+            <div class="card menu-card" onclick="location.href='transformer.html'">
+                <div class="icon-box" style="background: rgba(0, 255, 128, 0.15); color: #00ff80;">
+                    <i class="fa-solid fa-shuffle"></i>
+                </div>
+                <h3>Multi-Platform Transformer</h3>
+                <p>Ubah satu ide konten mentah menjadi skrip Reels, Thread X (Twitter), dan Carousel Instagram sekaligus.</p>
+                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 5. Script Polisher / Pemoles Diksi (Baru) -->
+            <div class="card menu-card" onclick="location.href='polisher.html'">
+                <div class="icon-box" style="background: rgba(180, 0, 255, 0.15); color: #b400ff;">
+                    <i class="fa-solid fa-feather"></i>
+                </div>
+                <h3>Script Polisher (Pemoles Diksi)</h3>
+                <p>Haluskan tulisan atau puisi mentahmu agar diksinya terasa jauh lebih puitis, emosional, dan menusuk hati.</p>
+                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 6. Content Planner 30 Hari (Baru) -->
+            <div class="card menu-card" onclick="location.href='planner.html'">
+                <div class="icon-box" style="background: rgba(255, 128, 0, 0.15); color: #ff8000;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <h3>Content Planner 30 Hari</h3>
+                <p>Buat jadwal dan daftar ide konten otomatis selama satu bulan penuh berdasarkan niche yang kamu tentukan.</p>
+                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+        </div>
+    </main>
+
+    <!-- TOMBOL SAWER MELAYANG (FLOATING QRIS BUTTON) -->
+    <button id="openQrisBtn" class="btn-floating-qris">
+        <i class="fa-solid fa-mug-hot"></i> Traktir Kopi
+    </button>
+
+    <!-- MODAL POP-UP QRIS -->
+    <div id="qrisModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeQrisBtn" class="close-btn">&times;</button>
+            <div class="modal-header">
+                <i class="fa-solid fa-mug-hot" style="color: #ffcc00; font-size: 28px;"></i>
+                <h3>Dukung Perkembangan Project</h3>
+                <p class="subtitle">Uang Kopi Seikhlasnya ☕</p>
+            </div>
+            
+            <div class="qris-card-box">
+                <img src="https://via.placeholder.com/300x400.png?text=QRIS+KAMU+DI+SINI" alt="QRIS Donasi" class="qris-image">
+                <p class="qris-info">Scan pakai aplikasi m-banking atau e-wallet apa saja (BCA, GoPay, OVO, Dana, dll).</p>
+            </div>
+
+            <div class="modal-footer-text">
+                <p>Terima kasih banyak atas dukungannya! Donasi dari kamu bikin kita makin semangat update fitur-fitur keren lainnya. 🙏✨</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 GudangKonten.my.id &bull; Dibangun untuk Kreator Indonesia</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

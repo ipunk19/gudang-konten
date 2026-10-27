@@ -1,0 +1,312 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --border-color: #2c2c2c;
+    --text-main: #f1f1f1;
+    --text-muted: #a0a0a0;
+    --accent-yellow: #ffcc00;
+    --accent-blue: #00ccff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-area h1 {
+    font-size: 18px;
+    color: var(--accent-yellow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-area p {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* TOMBOL QRIS NAV */
+.btn-qris-nav {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #121212;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.btn-qris-nav:active {
+    transform: scale(0.95);
+}
+
+/* CONTAINER & GRID */
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+}
+
+.welcome-banner {
+    margin-bottom: 20px;
+}
+
+.welcome-banner h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.welcome-banner p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media(min-width: 600px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* CARD MENU */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-card:hover {
+    border-color: var(--accent-yellow);
+    transform: translateY(-2px);
+}
+
+.icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.menu-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.menu-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.link-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--accent-yellow);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.disabled-card {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.disabled-card:hover {
+    border-color: var(--border-color);
+    transform: none;
+}
+
+/* MODAL QRIS OVERLAY */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 380px;
+    padding: 25px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.modal-header .subtitle {
+    font-size: 13px;
+    color: var(--accent-yellow);
+    margin-top: 2px;
+    font-weight: 600;
+}
+
+.qris-card-box {
+    background: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.qris-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.qris-info {
+    font-size: 11px;
+    color: #333;
+    margin-top: 8px;
+}
+
+.modal-footer-text p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+}
+/* TOMBOL SAWER MELAYANG (FLOATING QRIS) DI POJOK KANAN BAWAH */
+.btn-floating-qris {
+    position: fixed;
+    bottom: 25px;
+    right: 20px;
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #121212;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 20px rgba(255, 204, 0, 0.35);
+    z-index: 999;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-floating-qris:active {
+    transform: scale(0.95);
+}
+
+.btn-floating-qris:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 204, 0, 0.45);
+}
+/* TOMBOL PENGATURAN DI HEADER */
+.btn-icon-header {
+    background: var(--card-bg);
+    color: var(--accent-yellow);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+
+.btn-icon-header:hover {
+    background: var(--border-color);
+}

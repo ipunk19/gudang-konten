@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Suara (TTS) — GudangKonten.my.id</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER / NAVIGASI KEMBALI -->
+    <header>
+        <div class="logo-area">
+            <a href="index.html" style="color: var(--accent-yellow); text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold;">
+                <i class="fa-solid fa-arrow-left"></i> <span>Menu Utama</span>
+            </a>
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Studio Suara (TTS)</div>
+    </header>
+
+    <main class="container" style="padding-top: 20px;">
+        <!-- Studio TTS Terintegrasi -->
+        <div class="card tts-card">
+            <label style="color: var(--accent-blue); display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;"><i class="fa-solid fa-headphones"></i> STUDIO SUARA (TTS)</label>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Paste teks skrip narasi dari Pabrik Konten ke sini untuk diubah menjadi Voiceover AI.</p>
+            
+            <textarea id="ttsInput" rows="4" placeholder="Paste skrip narasi di sini..." style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 12px; font-size: 13px; resize: vertical;"></textarea>
+            
+            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 5px;">PILIH SUARA (SPEAKER)</label>
+            <select id="suaraTts" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 12px; font-size: 13px;">
+                <optgroup label="Storyteller (Rekomendasi Narasi)">
+                    <option value="enzo" selected>Enzo — Storyteller (Crisp, Low pitch)</option>
+                    <option value="riko">Riko — Storyteller (Confident, Deep pitch)</option>
+                    <option value="sami">Sami — Storyteller (Cool, Low pitch)</option>
+                </optgroup>
+                <optgroup label="Suara Lainnya">
+                    <option value="eve">Eve — Wanita</option>
+                    <option value="ara">Ara — Wanita</option>
+                    <option value="rex">Rex — Pria</option>
+                    <option value="sal">Sal — Pria</option>
+                    <option value="zephyr">Zephyr — Netral</option>
+                </optgroup>
+            </select>
+
+            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 5px;">TEMPERATURE: <span id="tempValue" style="color: var(--accent-yellow);">1</span></label>
+            <input type="range" id="temperatureRange" min="0" max="2" step="0.1" value="1" oninput="document.getElementById('tempValue').textContent = this.value" style="width: 100%; margin-bottom: 12px; accent-color: var(--accent-blue);">
+
+            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 5px;">INSTRUKSI GAYA BICARA (OPSIONAL)</label>
+            <textarea id="instruksiTts" rows="2" placeholder="Contoh: Bicara dengan tempo stabil, emosional, dan hangat..." style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; font-size: 13px; resize: vertical;"></textarea>
+            
+            <button id="generateTtsBtn" class="btn-tts" style="width: 100%; background: linear-gradient(135deg, #00ccff, #0088cc); color: #121212; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;"><i class="fa-solid fa-play"></i> Generate Voice (3.8 Flash TTS)</button>
+            
+            <!-- Audio Player -->
+            <div id="audioContainer" class="audio-container" style="display: none; margin-top: 15px; text-align: center; background: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 10px;"></audio>
+                <br>
+                <a id="downloadAudioBtn" class="btn-small" style="background: var(--card-bg); color: var(--accent-yellow); border: 1px solid var(--accent-yellow); text-decoration: none; display: inline-block; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: bold;"><i class="fa-solid fa-download"></i> Download Audio (WAV)</a>
+            </div>
+        </div>
+    </main>
+
+    <footer style="margin-top: 20px;">
+        <p>&copy; 2026 GudangKonten.my.id</p>
+    </footer>
+
+    <script src="tts.js"></script>
+</body>
+</html>

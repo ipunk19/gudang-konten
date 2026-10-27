@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hook & Title Generator — GudangKonten.my.id</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER / NAVIGASI ATAS -->
+    <header>
+        <div class="logo-area">
+            <a href="index.html" style="color: var(--accent-yellow); text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold;">
+                <i class="fa-solid fa-arrow-left"></i> <span>Menu Utama</span>
+            </a>
+        </div>
+        <!-- Tombol Pengaturan API -->
+        <button id="openSettingsBtn" class="btn-icon-header" title="Pengaturan API Key">
+            <i class="fa-solid fa-gear"></i> API Key
+        </button>
+    </header>
+
+    <main class="container" style="padding-top: 20px;">
+        
+        <!-- Status Indikator API Key -->
+        <div id="apiStatusBanner" style="background: rgba(0, 204, 255, 0.1); border: 1px solid rgba(0, 204, 255, 0.3); padding: 10px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+            <span><i class="fa-solid fa-circle-info" style="color: var(--accent-blue);"></i> Status API: <strong id="statusText" style="color: #ff4444;">Belum Diset</strong></span>
+            <button onclick="bukaPengaturan()" style="background: none; border: none; color: var(--accent-blue); cursor: pointer; font-weight: bold; text-decoration: underline;">Atur Key</button>
+        </div>
+
+        <!-- Input Topik Konten -->
+        <div class="card input-card" style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 8px;">TOPIK / IDE KONTEN UTAMA</label>
+            <textarea id="topikInput" rows="3" placeholder="Contoh: Pentingnya menikmati proses sendirian tanpa harus buru-buru sukses..." style="width: 100%; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 12px; font-size: 13px; resize: vertical;"></textarea>
+            <button id="generateHookBtn" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #ff4d4d, #cc0000); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;"><i class="fa-solid fa-anchor"></i> Generate Hook & Judul</button>
+        </div>
+
+        <!-- Output Teks -->
+        <div class="card output-card">
+            <div class="toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="badge" style="font-size: 11px; color: #ff4d4d; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-bolt"></i> Anti-Scroll Hook</span>
+                <div class="actions" style="display: flex; gap: 8px;">
+                    <button id="copyBtn" class="btn-icon" style="background: var(--border-color); color: var(--text-main); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px;"><i class="fa-solid fa-copy"></i> Salin</button>
+                    <button id="downloadBtn" class="btn-download" style="background: var(--border-color); color: var(--text-main); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px;"><i class="fa-solid fa-download"></i> Simpan TXT</button>
+                </div>
+            </div>
+            <textarea id="outputArea" rows="10" placeholder="Pilihan Hook 3 detik pertama dan judul pemancing klik akan muncul di sini..." readonly style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; resize: vertical; font-size: 13px;"></textarea>
+        </div>
+    </main>
+
+    <!-- MODAL PENGATURAN API KEY -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeSettingsBtn" class="close-btn">&times;</button>
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <i class="fa-solid fa-key" style="color: var(--accent-yellow); font-size: 24px;"></i>
+                <h3>Pengaturan Gemini API</h3>
+                <p class="subtitle" style="font-size: 12px; color: var(--text-muted);">Masukkan API Key pribadi kamu</p>
+            </div>
+            
+            <div style="text-align: left; margin-bottom: 15px;">
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 5px;">GEMINI API KEY</label>
+                <input type="password" id="apiKey" placeholder="AIzaSy..." style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; font-size: 13px; margin-bottom: 12px;">
+                
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 5px;">PILIH MODEL AI</label>
+                <select id="modelSelect" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; font-size: 13px;">
+                    <option value="gemini-3.8-flash">Gemini 3.8 Flash (Premium)</option>
+                    <option value="gemini-3.5-flash">Gemini 3.5 Flash (Gratis/Standar)</option>
+                    <option value="gemini-flash-latest">Gemini Flash Latest (Otomatis)</option>
+                </select>
+            </div>
+
+            <button id="saveApiKeyBtn" class="btn-primary" style="width: 100%; background: var(--accent-yellow); color: #121212; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">Simpan Pengaturan</button>
+        </div>
+    </div>
+
+    <footer style="margin-top: 20px;">
+        <p>&copy; 2026 GudangKonten.my.id</p>
+    </footer>
+
+    <script src="hook.js"></script>
+</body>
+</html>
