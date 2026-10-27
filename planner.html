@@ -16,7 +16,6 @@
                 <i class="fa-solid fa-arrow-left"></i> <span>Menu Utama</span>
             </a>
         </div>
-        <!-- Tombol API Key Resmi -->
         <button id="openSettingsBtn" class="btn-icon-header" title="Pengaturan API Key" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 6px;">
             <i class="fa-solid fa-gear" style="color: var(--accent-yellow);"></i> API Key
         </button>
@@ -37,9 +36,9 @@
             
             <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 8px;">TARGET PLATFORM & PERIODE</label>
             <select id="platformSelect" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; font-size: 13px;">
-                <option value="TikTok & Reels (1 Minggu)">TikTok & Reels (Jadwal 1 Minggu)</option>
-                <option value="YouTube Shorts (1 Minggu)">YouTube Shorts (Jadwal 1 Minggu)</option>
-                <option value="Multi Platform (Bulanan)">Multi Platform (Jadwal Bulanan)</option>
+                <option value="TikTok & Reels (Jadwal 1 Minggu)">TikTok & Reels (Jadwal 1 Minggu)</option>
+                <option value="YouTube Shorts (Jadwal 1 Minggu)">YouTube Shorts (Jadwal 1 Minggu)</option>
+                <option value="Multi Platform (Jadwal Lengkap 1 Bulan / 4 Minggu)">Multi Platform (Jadwal Lengkap 1 Bulan / 4 Minggu)</option>
             </select>
 
             <button id="generateBtn" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #00ccff, #0066ff); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;"><i class="fa-solid fa-calendar-days"></i> Buat Content Planner</button>
@@ -49,6 +48,10 @@
         <div class="card output-card">
             <div class="toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <span class="badge" style="font-size: 11px; color: #00ccff; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-bolt"></i> Jadwal Konten AI</span>
+                <div style="display: flex; gap: 6px;">
+                    <button id="copyBtn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; display: none; align-items: center; gap: 4px;"><i class="fa-solid fa-copy"></i> Salin</button>
+                    <button id="downloadBtn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; display: none; align-items: center; gap: 4px;"><i class="fa-solid fa-download"></i> Unduh</button>
+                </div>
             </div>
             <div id="outputArea" style="padding: 15px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; text-align: center; color: var(--text-muted); font-size: 13px;">
                 Jadwal content planner akan muncul di sini...
@@ -56,7 +59,7 @@
         </div>
     </main>
 
-    <!-- MODAL PENGATURAN API KEY (LENGKAP DENGAN DISCLAIMER AMAN) -->
+    <!-- MODAL PENGATURAN API KEY -->
     <div id="settingsModal" class="modal-overlay">
         <div class="modal-content">
             <button id="closeSettingsBtn" class="close-btn">&times;</button>
@@ -66,7 +69,6 @@
                 <p class="subtitle" style="font-size: 12px; color: var(--text-muted);">Masukkan API Key pribadi kamu</p>
             </div>
             
-            <!-- Kotak Panduan & Jaminan 100% Aman -->
             <div style="text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 11px; color: var(--text-muted); line-height: 1.5;">
                 <p style="font-weight: bold; color: var(--accent-yellow); margin-bottom: 6px; font-size: 12px;">
                     <i class="fa-solid fa-circle-question"></i> Belum punya API Key?
@@ -74,10 +76,9 @@
                 <ol style="margin: 0; padding-left: 15px; margin-bottom: 8px;">
                     <li>Buka <a href="https://aistudio.google.com" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">aistudio.google.com</a></li>
                     <li>Login pakai Akun Google & klik tombol <b>"Get API key"</b>.</li>
-                    <li>Buat key baru, salin, lalu tempel di kotak atas.</li>
                 </ol>
                 <p style="color: #00ffcc; font-size: 10px; border-top: 1px dashed var(--border-color); padding-top: 6px; margin-top: 6px;">
-                    <i class="fa-solid fa-shield-halved"></i> <b>100% Aman:</b> API Key kamu hanya tersimpan di perangkatmu sendiri (Browser LocalStorage) dan tidak pernah dikirim ke server manapun.
+                    <i class="fa-solid fa-shield-halved"></i> <b>100% Aman:</b> Tersimpan di perangkat sendiri (LocalStorage).
                 </p>
             </div>
 
