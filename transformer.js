@@ -4,7 +4,15 @@ window.bukaPengaturan = function() {
     if (modal) modal.classList.add("active");
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {     // Pastikan tombol kuning di header merespons klik
+    const openSettingsBtn = document.getElementById("openSettingsBtn");
+    if (openSettingsBtn) {
+        openSettingsBtn.addEventListener("click", () => {
+            const modal = document.getElementById("settingsModal");
+            if (modal) modal.classList.add("active");
+        });
+    }
+    
     // 1. Otomatis buat tombol API Key di header jika belum ada
     const header = document.querySelector("header");
     if (header && !document.getElementById("openSettingsBtn")) {
