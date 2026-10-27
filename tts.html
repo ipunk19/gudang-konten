@@ -9,56 +9,77 @@
 </head>
 <body>
 
-    <!-- HEADER / NAVIGASI KEMBALI -->
+    <!-- HEADER / NAVIGASI ATAS -->
     <header>
         <div class="logo-area">
             <a href="index.html" style="color: var(--accent-yellow); text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold;">
                 <i class="fa-solid fa-arrow-left"></i> <span>Menu Utama</span>
             </a>
         </div>
-        <div style="font-size: 13px; color: var(--text-muted);">Studio Suara (TTS)</div>
+        <!-- Tombol Pengaturan API (YANG SEBELUMNYA KETINGGALAN) -->
+        <button id="openSettingsBtn" class="btn-icon-header" title="Pengaturan API Key">
+            <i class="fa-solid fa-gear"></i> API Key
+        </button>
     </header>
 
     <main class="container" style="padding-top: 20px;">
-        <!-- Studio TTS Terintegrasi -->
-        <div class="card tts-card">
-            <label style="color: var(--accent-blue); display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;"><i class="fa-solid fa-headphones"></i> STUDIO SUARA (TTS)</label>
-            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Paste teks skrip narasi dari Pabrik Konten ke sini untuk diubah menjadi Voiceover AI.</p>
+        
+        <!-- Status Indikator API Key -->
+        <div id="apiStatusBanner" style="background: rgba(0, 204, 255, 0.1); border: 1px solid rgba(0, 204, 255, 0.3); padding: 10px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+            <span><i class="fa-solid fa-circle-info" style="color: var(--accent-blue);"></i> Status API: <strong id="statusText" style="color: #ff4444;">Belum Diset</strong></span>
+            <button onclick="bukaPengaturan()" style="background: none; border: none; color: var(--accent-blue); cursor: pointer; font-weight: bold; text-decoration: underline;">Atur Key</button>
+        </div>
+
+        <!-- Area Studio TTS -->
+        <div class="card input-card" style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 8px;">SKRIP NARASI TTS</label>
+            <textarea id="ttsInput" rows="5" placeholder="Tempel skrip narasi di sini untuk diubah menjadi suara..." style="width: 100%; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 12px; font-size: 13px; resize: vertical;"></textarea>
             
-            <textarea id="ttsInput" rows="4" placeholder="Paste skrip narasi di sini..." style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 12px; font-size: 13px; resize: vertical;"></textarea>
-            
-            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 5px;">PILIH SUARA (SPEAKER)</label>
-            <select id="suaraTts" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 12px; font-size: 13px;">
-                <optgroup label="Storyteller (Rekomendasi Narasi)">
-                    <option value="enzo" selected>Enzo — Storyteller (Crisp, Low pitch)</option>
-                    <option value="riko">Riko — Storyteller (Confident, Deep pitch)</option>
-                    <option value="sami">Sami — Storyteller (Cool, Low pitch)</option>
-                </optgroup>
-                <optgroup label="Suara Lainnya">
-                    <option value="eve">Eve — Wanita</option>
-                    <option value="ara">Ara — Wanita</option>
-                    <option value="rex">Rex — Pria</option>
-                    <option value="sal">Sal — Pria</option>
-                    <option value="zephyr">Zephyr — Netral</option>
-                </optgroup>
+            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 6px;">PILIH SUARA (SPEAKER)</label>
+            <select id="voiceSelect" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; font-size: 13px;">
+                <option value="en-US-Journey-F">Enzo — Storyteller (Deep & Warm)</option>
+                <option value="id-ID-Standard-A">Riko — Karismatik (Standar)</option>
             </select>
 
-            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 5px;">TEMPERATURE: <span id="tempValue" style="color: var(--accent-yellow);">1</span></label>
-            <input type="range" id="temperatureRange" min="0" max="2" step="0.1" value="1" oninput="document.getElementById('tempValue').textContent = this.value" style="width: 100%; margin-bottom: 12px; accent-color: var(--accent-blue);">
+            <button id="generateTtsBtn" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #00ccff, #0066ff); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;"><i class="fa-solid fa-microphone-lines"></i> Generate Voice (TTS)</button>
+        </div>
 
-            <label style="display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); margin-bottom: 5px;">INSTRUKSI GAYA BICARA (OPSIONAL)</label>
-            <textarea id="instruksiTts" rows="2" placeholder="Contoh: Bicara dengan tempo stabil, emosional, dan hangat..." style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; font-size: 13px; resize: vertical;"></textarea>
-            
-            <button id="generateTtsBtn" class="btn-tts" style="width: 100%; background: linear-gradient(135deg, #00ccff, #0088cc); color: #121212; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;"><i class="fa-solid fa-play"></i> Generate Voice (3.8 Flash TTS)</button>
-            
-            <!-- Audio Player -->
-            <div id="audioContainer" class="audio-container" style="display: none; margin-top: 15px; text-align: center; background: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
-                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 10px;"></audio>
-                <br>
-                <a id="downloadAudioBtn" class="btn-small" style="background: var(--card-bg); color: var(--accent-yellow); border: 1px solid var(--accent-yellow); text-decoration: none; display: inline-block; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: bold;"><i class="fa-solid fa-download"></i> Download Audio (WAV)</a>
+        <!-- Output Audio / Hasil -->
+        <div class="card output-card">
+            <div class="toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="badge" style="font-size: 11px; color: #00ccff; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-bolt"></i> Output Audio</span>
+            </div>
+            <div id="ttsOutputArea" style="padding: 15px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; text-align: center; color: var(--text-muted); font-size: 13px;">
+                Audio hasil *generate* akan muncul di sini...
             </div>
         </div>
     </main>
+
+    <!-- MODAL PENGATURAN API KEY (YANG JUGA KETINGGALAN) -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeSettingsBtn" class="close-btn">&times;</button>
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <i class="fa-solid fa-key" style="color: var(--accent-yellow); font-size: 24px;"></i>
+                <h3>Pengaturan Gemini API</h3>
+                <p class="subtitle" style="font-size: 12px; color: var(--text-muted);">Masukkan API Key pribadi kamu</p>
+            </div>
+            
+            <div style="text-align: left; margin-bottom: 15px;">
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 5px;">GEMINI API KEY</label>
+                <input type="password" id="apiKey" placeholder="AIzaSy..." style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; font-size: 13px; margin-bottom: 12px;">
+                
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 5px;">PILIH MODEL AI</label>
+                <select id="modelSelect" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; font-size: 13px;">
+                    <option value="gemini-3.8-flash">Gemini 3.8 Flash (Premium)</option>
+                    <option value="gemini-3.5-flash">Gemini 3.5 Flash (Gratis/Standar)</option>
+                    <option value="gemini-flash-latest">Gemini Flash Latest (Otomatis)</option>
+                </select>
+            </div>
+
+            <button id="saveApiKeyBtn" class="btn-primary" style="width: 100%; background: var(--accent-yellow); color: #121212; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">Simpan Pengaturan</button>
+        </div>
+    </div>
 
     <footer style="margin-top: 20px;">
         <p>&copy; 2026 GudangKonten.my.id</p>
