@@ -119,5 +119,60 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- MODAL SAWER OTOMATIS (Hanya muncul sekali di kunjungan pertama) -->
+<div id="sawerModal" class="modal-overlay">
+    <div class="modal-content" style="text-align: center;">
+        <button id="closeSawerBtn" class="close-btn">&times;</button>
+        <div style="font-size: 36px; margin-bottom: 10px;">☕</div>
+        <h3 style="color: var(--accent-yellow); margin-bottom: 8px;">Dukung Kreator & Web Ini</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">
+            Halo, Kreator! Kalau alat-alat gratis di Gudang Konten ini ngebantu alur kerjamu, yuk traktir kopi secangkir biar tools-nya terus update dan bebas iklan! 🙏
+        </p>
+        
+        <!-- Ganti link href di bawah dengan link Trakteer/Saweria/QRIS kamu -->
+        <a href="https://trakteer.id/GantiLinkKamu" target="_blank" class="btn-primary" style="display: block; background: #FFDD00; color: #121212; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 10px; font-size: 13px;">
+            <i class="fa-solid fa-mug-hot"></i> Traktir Kopi (Sawer)
+        </a>
+        
+        <button id="laterSawerBtn" style="background: none; border: none; color: var(--text-muted); font-size: 11px; cursor: pointer; text-decoration: underline;">
+            Nanti saja, lanjut pakai tools
+        </button>
+    </div>
+</div>
+
+<!-- SCRIPT OTOMATIS POP-UP SAWER -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Cek apakah pop-up sudah pernah dimunculkan di sesi ini
+    if (!sessionStorage.getItem("sawerPopupShown")) {
+        // Munculkan otomatis setelah 1.5 detik (biar halaman utama sempat termuat dulu)
+        setTimeout(() => {
+            const sawerModal = document.getElementById("sawerModal");
+            if (sawerModal) {
+                sawerModal.classList.add("active");
+                // Tandai bahwa pop-up sudah tampil untuk sesi ini
+                sessionStorage.setItem("sawerPopupShown", "true");
+            }
+        }, 1500);
+    }
+
+    // Tombol untuk menutup pop-up
+    const closeSawerBtn = document.getElementById("closeSawerBtn");
+    const laterSawerBtn = document.getElementById("laterSawerBtn");
+    const sawerModal = document.getElementById("sawerModal");
+
+    if (closeSawerBtn && sawerModal) {
+        closeSawerBtn.onclick = () => sawerModal.classList.remove("active");
+    }
+    if (laterSawerBtn && sawerModal) {
+        laterSawerBtn.onclick = () => sawerModal.classList.remove("active");
+    }
+    if (sawerModal) {
+        sawerModal.onclick = (e) => {
+            if (e.target === sawerModal) sawerModal.classList.remove("active");
+        };
+    }
+});
+</script>
 </body>
 </html>
