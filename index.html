@@ -25,7 +25,7 @@
             <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Pilih alat di bawah untuk mempermudah produksi konten sosial media kamu secara instan.</p>
         </div>
 
-        <!-- DAFTAR MENU TOOLS -->
+        <!-- DAFTAR SEMUA MENU TOOLS -->
         <div style="display: flex; flex-direction: column; gap: 10px;">
             <a href="transformer.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
                 <div style="display: flex; align-items: center; gap: 12px;">
@@ -48,6 +48,50 @@
                 </div>
                 <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
             </a>
+
+            <a href="generator.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-file-lines" style="color: #ff9900; font-size: 18px;"></i>
+                    <div>
+                        <strong style="font-size: 13px; display: block;">Generator Konten</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">Buat ide dan draf tulisan otomatis</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
+            </a>
+
+            <a href="hook.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-fish-fins" style="color: #ff4444; font-size: 18px;"></i>
+                    <div>
+                        <strong style="font-size: 13px; display: block;">Hook Kreator</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">Buat kalimat pemancing penonton</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
+            </a>
+
+            <a href="polisher.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-pen-nib" style="color: #00ffcc; font-size: 18px;"></i>
+                    <div>
+                        <strong style="font-size: 13px; display: block;">Polisher Teks</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">Haluskan dan perbaiki gaya bahasa</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
+            </a>
+
+            <a href="tts.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-volume-high" style="color: #ff00ff; font-size: 18px;"></i>
+                    <div>
+                        <strong style="font-size: 13px; display: block;">Text to Speech (TTS)</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">Ubah teks jadi suara narasi AI</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
+            </a>
         </div>
     </main>
 
@@ -58,7 +102,7 @@
             <div style="font-size: 32px; margin-bottom: 8px;">☕</div>
             <h3 style="color: var(--accent-yellow); margin-bottom: 8px; font-size: 16px;">Dukung Kreator & Web Ini</h3>
             
-            <!-- GAMBAR QRIS LANGSUNG DARI FILE Qris.jpg DI REPO -->
+            <!-- GAMBAR QRIS -->
             <div style="margin-bottom: 12px;">
                 <img src="qris.jpg" alt="QRIS Sawer" style="width: 140px; height: 140px; border-radius: 8px; border: 2px solid var(--border-color); object-fit: contain; background: #fff; padding: 5px;">
                 <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Scan QRIS pakai GoPay, OVO, Dana, BCA, dll.</p>
@@ -78,7 +122,7 @@
         <p>&copy; 2026 GudangKonten.my.id</p>
     </footer>
 
-    <!-- SCRIPT OTOMATIS POP-UP SAWER SEKALI DI SESI PERTAMA -->
+    <!-- SCRIPT POP-UP SAWER SEKALI DI SESI PERTAMA -->
     <script>
     document.addEventListener("DOMContentLoaded", () => {
         if (!sessionStorage.getItem("sawerPopupShown")) {
