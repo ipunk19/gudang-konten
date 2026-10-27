@@ -3,176 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GudangKonten.my.id — Pusat Alat Konten Kreator AI</title>
+    <title>GudangKonten.my.id — Content Creator Tool Hub</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- HEADER / NAVIGASI ATAS -->
+    <!-- HEADER -->
     <header>
         <div class="logo-area">
-            <h1><i class="fa-solid fa-box-archive"></i> GUDANG KONTEN</h1>
-            <p>Pusat Alat & Sumber Daya Konten Kreator</p>
+            <span style="color: var(--accent-yellow); font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-layer-group"></i> GudangKonten.my.id
+            </span>
         </div>
     </header>
 
-    <!-- KONTEN UTAMA / DASHBOARD MENU -->
-    <main class="container">
-        <div class="welcome-banner">
-            <h2>Selamat Datang, Kreator! 👋</h2>
-            <p>Pilih alat otomasi di bawah untuk mempercepat alur produksi kontenmu hari ini.</p>
+    <!-- MAIN CONTAINER -->
+    <main class="container" style="padding-top: 20px;">
+        <div class="card" style="margin-bottom: 15px; text-align: center; padding: 20px;">
+            <h2 style="color: var(--accent-yellow); font-size: 18px; margin-bottom: 8px;">Pusat Alat Kreator Konten</h2>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Pilih alat di bawah untuk mempermudah produksi konten sosial media kamu secara instan.</p>
         </div>
 
-        <div class="menu-grid">
-            <!-- 1. Generator Narasi & Quotes -->
-            <div class="card menu-card" onclick="location.href='generator.html'">
-                <div class="icon-box" style="background: rgba(255, 204, 0, 0.15); color: #ffcc00;">
-                    <i class="fa-solid fa-bolt"></i>
+        <!-- DAFTAR MENU TOOLS -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="transformer.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: #00ccff; font-size: 18px;"></i>
+                    <div>
+                        <strong style="font-size: 13px; display: block;">Multi Transform</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">Ubah teks mentah jadi konten kreatif</span>
+                    </div>
                 </div>
-                <h3>Generator Narasi & Quotes</h3>
-                <p>Buat teks visual puitis, skrip narasi voiceover, arahan B-Roll, caption, dan metadata SEO dari satu ide.</p>
-                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
+            </a>
 
-            <!-- 2. Studio Suara (TTS) -->
-            <div class="card menu-card" onclick="location.href='tts.html'">
-                <div class="icon-box" style="background: rgba(0, 204, 255, 0.15); color: #00ccff;">
-                    <i class="fa-solid fa-headphones"></i>
+            <a href="planner.html" class="card" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-calendar-days" style="color: var(--accent-yellow); font-size: 18px;"></i>
+                    <div>
+                        <strong style="font-size: 13px; display: block;">Content Planner</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">Buat jadwal konten otomatis</span>
+                    </div>
                 </div>
-                <h3>Studio Suara (TTS)</h3>
-                <p>Ubah teks narasi menjadi suara AI berkualitas tinggi dengan pilihan karakter suara (Enzo, Riko, dll) dan atur suasananya.</p>
-                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-
-            <!-- 3. Hook & Title Generator (Baru) -->
-            <div class="card menu-card" onclick="location.href='hook.html'">
-                <div class="icon-box" style="background: rgba(255, 77, 77, 0.15); color: #ff4d4d;">
-                    <i class="fa-solid fa-anchor"></i>
-                </div>
-                <h3>Hook & Title Generator</h3>
-                <p>Racik 3 detik pertama video (Hook) yang mematikan dan judul bombastis untuk menghentikan orang scrolling.</p>
-                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-
-            <!-- 4. Multi-Platform Transformer (Baru) -->
-            <div class="card menu-card" onclick="location.href='transformer.html'">
-                <div class="icon-box" style="background: rgba(0, 255, 128, 0.15); color: #00ff80;">
-                    <i class="fa-solid fa-shuffle"></i>
-                </div>
-                <h3>Multi-Platform Transformer</h3>
-                <p>Ubah satu ide konten mentah menjadi skrip Reels, Thread X (Twitter), dan Carousel Instagram sekaligus.</p>
-                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-
-            <!-- 5. Script Polisher / Pemoles Diksi (Baru) -->
-            <div class="card menu-card" onclick="location.href='polisher.html'">
-                <div class="icon-box" style="background: rgba(180, 0, 255, 0.15); color: #b400ff;">
-                    <i class="fa-solid fa-feather"></i>
-                </div>
-                <h3>Script Polisher (Pemoles Diksi)</h3>
-                <p>Haluskan tulisan atau puisi mentahmu agar diksinya terasa jauh lebih puitis, emosional, dan menusuk hati.</p>
-                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-
-            <!-- 6. Content Planner 30 Hari (Baru) -->
-            <div class="card menu-card" onclick="location.href='planner.html'">
-                <div class="icon-box" style="background: rgba(255, 128, 0, 0.15); color: #ff8000;">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
-                <h3>Content Planner 30 Hari</h3>
-                <p>Buat jadwal dan daftar ide konten otomatis selama satu bulan penuh berdasarkan niche yang kamu tentukan.</p>
-                <span class="link-text">Buka Tool <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
+            </a>
         </div>
     </main>
 
-    <!-- TOMBOL SAWER MELAYANG (FLOATING QRIS BUTTON) -->
-    <button id="openQrisBtn" class="btn-floating-qris">
-        <i class="fa-solid fa-mug-hot"></i> Traktir Kopi
-    </button>
-
-    <!-- MODAL POP-UP QRIS -->
-    <div id="qrisModal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="closeQrisBtn" class="close-btn">&times;</button>
-            <div class="modal-header">
-                <i class="fa-solid fa-mug-hot" style="color: #ffcc00; font-size: 28px;"></i>
-                <h3>Dukung Perkembangan Project</h3>
-                <p class="subtitle">Uang Kopi Seikhlasnya ☕</p>
-            </div>
+    <!-- MODAL SAWER OTOMATIS DENGAN QRIS -->
+    <div id="sawerModal" class="modal-overlay">
+        <div class="modal-content" style="text-align: center;">
+            <button id="closeSawerBtn" class="close-btn">&times;</button>
+            <div style="font-size: 32px; margin-bottom: 8px;">☕</div>
+            <h3 style="color: var(--accent-yellow); margin-bottom: 8px; font-size: 16px;">Dukung Kreator & Web Ini</h3>
             
-            <div class="qris-card-box">
-                <img src="qris.jpg" alt="QRIS Donasi" class="qris-image">
-                <p class="qris-info">Scan pakai aplikasi m-banking atau e-wallet apa saja (BCA, GoPay, OVO, Dana, dll).</p>
+            <!-- GAMBAR QRIS LANGSUNG DARI FILE Qris.jpg DI REPO -->
+            <div style="margin-bottom: 12px;">
+                <img src="qris.jpg" alt="QRIS Sawer" style="width: 140px; height: 140px; border-radius: 8px; border: 2px solid var(--border-color); object-fit: contain; background: #fff; padding: 5px;">
+                <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Scan QRIS pakai GoPay, OVO, Dana, BCA, dll.</p>
             </div>
 
-            <div class="modal-footer-text">
-                <p>Terima kasih banyak atas dukungannya! Donasi dari kamu bikin kita makin semangat update fitur-fitur keren lainnya. 🙏✨</p>
-            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">
+                Halo, Kreator! Kalau tools gratis di Gudang Konten ini ngebantu alur kerjamu, yuk traktir kopi secangkir biar terus update & bebas iklan! 🙏
+            </p>
+            
+            <button id="laterSawerBtn" style="background: none; border: none; color: var(--text-muted); font-size: 11px; cursor: pointer; text-decoration: underline;">
+                Nanti saja, lanjut pakai tools
+            </button>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 GudangKonten.my.id &bull; Dibangun untuk Kreator Indonesia</p>
+    <footer style="margin-top: 30px; text-align: center; padding: 15px; font-size: 11px; color: var(--text-muted);">
+        <p>&copy; 2026 GudangKonten.my.id</p>
     </footer>
 
-    <script src="script.js"></script>
-    <!-- MODAL SAWER OTOMATIS (Hanya muncul sekali di kunjungan pertama) -->
-<div id="sawerModal" class="modal-overlay">
-    <div class="modal-content" style="text-align: center;">
-        <button id="closeSawerBtn" class="close-btn">&times;</button>
-        <div style="font-size: 36px; margin-bottom: 10px;">☕</div>
-        <h3 style="color: var(--accent-yellow); margin-bottom: 8px;">Dukung Kreator & Web Ini</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">
-            Halo, Kreator! Kalau alat-alat gratis di Gudang Konten ini ngebantu alur kerjamu, yuk traktir kopi secangkir biar tools-nya terus update dan bebas iklan! 🙏
-        </p>
-        
-        <!-- Ganti link href di bawah dengan link Trakteer/Saweria/QRIS kamu -->
-        <a href="https://trakteer.id/GantiLinkKamu" target="_blank" class="btn-primary" style="display: block; background: #FFDD00; color: #121212; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 10px; font-size: 13px;">
-            <i class="fa-solid fa-mug-hot"></i> Traktir Kopi (Sawer)
-        </a>
-        
-        <button id="laterSawerBtn" style="background: none; border: none; color: var(--text-muted); font-size: 11px; cursor: pointer; text-decoration: underline;">
-            Nanti saja, lanjut pakai tools
-        </button>
-    </div>
-</div>
+    <!-- SCRIPT OTOMATIS POP-UP SAWER SEKALI DI SESI PERTAMA -->
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!sessionStorage.getItem("sawerPopupShown")) {
+            setTimeout(() => {
+                const sawerModal = document.getElementById("sawerModal");
+                if (sawerModal) {
+                    sawerModal.classList.add("active");
+                    sessionStorage.setItem("sawerPopupShown", "true");
+                }
+            }, 1500);
+        }
 
-<!-- SCRIPT OTOMATIS POP-UP SAWER -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    // Cek apakah pop-up sudah pernah dimunculkan di sesi ini
-    if (!sessionStorage.getItem("sawerPopupShown")) {
-        // Munculkan otomatis setelah 1.5 detik (biar halaman utama sempat termuat dulu)
-        setTimeout(() => {
-            const sawerModal = document.getElementById("sawerModal");
-            if (sawerModal) {
-                sawerModal.classList.add("active");
-                // Tandai bahwa pop-up sudah tampil untuk sesi ini
-                sessionStorage.setItem("sawerPopupShown", "true");
-            }
-        }, 1500);
-    }
+        const closeSawerBtn = document.getElementById("closeSawerBtn");
+        const laterSawerBtn = document.getElementById("laterSawerBtn");
+        const sawerModal = document.getElementById("sawerModal");
 
-    // Tombol untuk menutup pop-up
-    const closeSawerBtn = document.getElementById("closeSawerBtn");
-    const laterSawerBtn = document.getElementById("laterSawerBtn");
-    const sawerModal = document.getElementById("sawerModal");
-
-    if (closeSawerBtn && sawerModal) {
-        closeSawerBtn.onclick = () => sawerModal.classList.remove("active");
-    }
-    if (laterSawerBtn && sawerModal) {
-        laterSawerBtn.onclick = () => sawerModal.classList.remove("active");
-    }
-    if (sawerModal) {
-        sawerModal.onclick = (e) => {
-            if (e.target === sawerModal) sawerModal.classList.remove("active");
-        };
-    }
-});
-</script>
+        if (closeSawerBtn && sawerModal) {
+            closeSawerBtn.onclick = () => sawerModal.classList.remove("active");
+        }
+        if (laterSawerBtn && sawerModal) {
+            laterSawerBtn.onclick = () => sawerModal.classList.remove("active");
+        }
+        if (sawerModal) {
+            sawerModal.onclick = (e) => {
+                if (e.target === sawerModal) sawerModal.classList.remove("active");
+            };
+        }
+    });
+    </script>
 </body>
 </html>
