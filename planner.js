@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiKeyInput = document.getElementById("apiKey");
     const modelSelect = document.getElementById("modelSelect");
 
-    let rawGeneratedText = ""; // Untuk fitur salin & unduh
+    let rawGeneratedText = "";
 
     try {
         if (localStorage.getItem("geminiApiKey") && apiKeyInput) {
@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Tombol Salin & Unduh
     const copyBtn = document.getElementById("copyBtn");
     const downloadBtn = document.getElementById("downloadBtn");
 
@@ -88,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `Content-Planner-${document.getElementById("nicheInput").value.trim().replace(/\s+/g, '-') || 'Kreator'}.md`;
+            a.download = `Planner-1Minggu-${document.getElementById("nicheInput").value.trim().replace(/\s+/g, '-') || 'Kreator'}.md`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -96,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Logika Tombol Generate Planner
     const generateBtn = document.getElementById("generateBtn");
     const nicheInput = document.getElementById("nicheInput");
     const platformSelect = document.getElementById("platformSelect");
@@ -119,17 +117,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            generateBtn.innerHTML = `<i class='fa-solid fa-spinner fa-spin'></i> Menyusun Jadwal...`;
+            generateBtn.innerHTML = `<i class='fa-solid fa-spinner fa-spin'></i> Menyusun Jadwal 1 Minggu...`;
             generateBtn.disabled = true;
-            outputArea.innerHTML = "AI sedang menyusun jadwal content planner lengkap (pastikan koneksi stabil)...";
+            outputArea.innerHTML = "AI sedang meracik jadwal 7 hari lengkap sampai tuntas...";
             if (copyBtn) copyBtn.style.display = "none";
             if (downloadBtn) downloadBtn.style.display = "none";
 
-            const promptText = `Buatlah content planner atau jadwal pembuatan konten yang sangat terstruktur, lengkap, dan mendalam untuk:
+            const promptText = `Buatlah content planner atau jadwal pembuatan konten yang sangat terstruktur, mendalam, dan TUNTAS untuk tepat 7 hari (Senin sampai Minggu):
 - Niche/Tema: "${niche}"
-- Target & Periode: "${platform}"
+- Target Platform: "${platform}"
 
-PENTING: Jika periode yang dipilih adalah bulanan, buatlah jadwal lengkap untuk Minggu 1, Minggu 2, Minggu 3, dan Minggu 4 tanpa terpotong. Berikan ide judul, format video, sudut pandang hook (pemancing penonton), dan catatan eksekusi harian secara detail.`;
+INSTRUKSI UTAMA:
+Berikan jadwal lengkap secara berurutan mulai dari Hari Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, hingga Minggu tanpa terpotong. Untuk setiap hari, wajib mencakup:
+1. Judul Konten yang menarik
+2. Format & Sudut Pandang (Hook)
+3. Catatan Eksekusi Visual / Audio
+
+Pastikan teks diakhiri dengan tuntas sampai hari Minggu!`;
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
@@ -140,7 +144,7 @@ PENTING: Jika periode yang dipilih adalah bulanan, buatlah jadwal lengkap untuk 
                             parts: [{ text: promptText }] 
                         }],
                         generationConfig: {
-                            maxOutputTokens: 4096 // Memperbesar batas output agar teks bulanan tidak terpotong di tengah jalan
+                            maxOutputTokens: 3048
                         }
                     })
                 });
@@ -150,16 +154,15 @@ PENTING: Jika periode yang dipilih adalah bulanan, buatlah jadwal lengkap untuk 
                 if (!data.candidates || data.candidates.length === 0) throw new Error("Tidak ada hasil.");
 
                 rawGeneratedText = data.candidates[0].content.parts[0].text;
-                outputArea.innerHTML = `<div style="text-align: left; font-size: 12px; color: var(--text-main); line-height: 1.6;"><strong style="color: var(--accent-blue);"><i class="fa-solid fa-circle-check"></i> Content Planner Berhasil Dibuat:</strong><br><br>${rawGeneratedText.replace(/\n/g, '<br>')}</div>`;
+                outputArea.innerHTML = `<div style="text-align: left; font-size: 12px; color: var(--text-main); line-height: 1.6;"><strong style="color: var(--accent-blue);"><i class="fa-solid fa-circle-check"></i> Jadwal 1 Minggu Berhasil Dibuat:</strong><br><br>${rawGeneratedText.replace(/\n/g, '<br>')}</div>`;
 
-                // Munculkan tombol Salin & Unduh
                 if (copyBtn) copyBtn.style.display = "inline-flex";
                 if (downloadBtn) downloadBtn.style.display = "inline-flex";
 
             } catch (error) {
                 outputArea.innerHTML = `<span style="color: #ff4444;">❌ GAGAL MEMPROSES:\n\n${error.message}</span>`;
             } finally {
-                generateBtn.innerHTML = `<i class="fa-solid fa-calendar-days"></i> Buat Content Planner`;
+                generateBtn.innerHTML = `<i class="fa-solid fa-calendar-days"></i> Buat Content Planner 1 Minggu`;
                 generateBtn.disabled = false;
             }
         });
