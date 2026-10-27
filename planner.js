@@ -1,77 +1,60 @@
-function bukaPengaturan() {
-    document.getElementById("settingsModal").classList.add("active");
-}
-
 function updateApiStatusUI() {
     const savedKey = localStorage.getItem("geminiApiKey");
     const statusText = document.getElementById("statusText");
     const apiStatusBanner = document.getElementById("apiStatusBanner");
     
-    if (savedKey) {
+    if (savedKey && statusText && apiStatusBanner) {
         statusText.textContent = "Aktif (Tersimpan)";
         statusText.style.color = "#00ffcc";
         apiStatusBanner.style.background = "rgba(0, 255, 204, 0.08)";
         apiStatusBanner.style.borderColor = "rgba(0, 255, 204, 0.3)";
-    } else {
+    } else if (statusText) {
         statusText.textContent = "Belum Diset";
         statusText.style.color = "#ff4444";
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => { // --- KODE OTOMATIS: Tambah Panduan API Key ke Modal ---
-const modalContent = document.querySelector("#settingsModal .modal-content");
-if (modalContent && !document.getElementById("apiTutorialBox")) {
-    const tutorialDiv = document.createElement("div");
-    tutorialDiv.id = "apiTutorialBox";
-    tutorialDiv.style.cssText = "text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 11px; color: var(--text-muted); line-height: 1.5;";
-    tutorialDiv.innerHTML = `
-            tutorialDiv.innerHTML = `
-            <p style="font-weight: bold; color: var(--accent-yellow); margin-bottom: 6px; font-size: 12px;">
-                <i class="fa-solid fa-circle-question"></i> Belum punya API Key?
-            </p>
-            <ol style="margin: 0; padding-left: 15px; margin-bottom: 8px;">
-                <li>Buka <a href="https://aistudio.google.com" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">aistudio.google.com</a></li>
-                <li>Login pakai Akun Google & klik tombol <b>"Get API key"</b>.</li>
-                <li>Buat key baru, salin, lalu tempel di kotak atas.</li>
-            </ol>
-            <p style="color: #00ffcc; font-size: 10px; border-top: 1px dashed var(--border-color); padding-top: 6px; margin-top: 6px;">
-                <i class="fa-solid fa-shield-halved"></i> <b>100% Aman:</b> API Key kamu hanya tersimpan di perangkatmu sendiri (Browser LocalStorage) dan tidak pernah dikirim ke server manapun.
-            </p>
-        `;
-
-    
-    // Sisipkan otomatis tepat di atas tombol "Simpan Pengaturan"
-    const saveBtn = document.getElementById("saveApiKeyBtn");
-    if (saveBtn) {
-        modalContent.insertBefore(tutorialDiv, saveBtn);
-    } else {
-        modalContent.appendChild(tutorialDiv);
-    }
-}
-
-    const apiKeyInput = document.getElementById("apiKey");
-    const modelSelect = document.getElementById("modelSelect");
-    const nicheInput = document.getElementById("nicheInput");
-    const generatePlannerBtn = document.getElementById("generatePlannerBtn");
-    const outputArea = document.getElementById("outputArea");
-    const copyBtn = document.getElementById("copyBtn");
-    const downloadBtn = document.getElementById("downloadBtn");
-
-    const settingsModal = document.getElementById("settingsModal");
+document.addEventListener("DOMContentLoaded", () => {
     const openSettingsBtn = document.getElementById("openSettingsBtn");
     const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+    const settingsModal = document.getElementById("settingsModal");
     const saveApiKeyBtn = document.getElementById("saveApiKeyBtn");
+    const apiKeyInput = document.getElementById("apiKey");
+    const modelSelect = document.getElementById("modelSelect");
 
+    // Muat data tersimpan
     try {
-        if (localStorage.getItem("geminiApiKey")) {
+        if (localStorage.getItem("geminiApiKey") && apiKeyInput) {
             apiKeyInput.value = localStorage.getItem("geminiApiKey");
         }
-        if (localStorage.getItem("geminiSelectedModel")) {
+        if (localStorage.getItem("geminiSelectedModel") && modelSelect) {
             modelSelect.value = localStorage.getItem("geminiSelectedModel");
         }
         updateApiStatusUI();
     } catch (e) {}
 
+    // Tombol Buka/Tutup Modal Settings
+    if (openSettingsBtn && settingsModal) {
+        openSettingsBtn.addEventListener("click", () => {
+            settingsModal.classList.add("active");
+        });
+    }
+
+    if (closeSettingsBtn && settingsModal) {
+        closeSettingsBtn.addEventListener("click", () => {
+            settingsModal.classList.remove("active");
+        });
+    }
+
+    if (settingsModal) {
+        settingsModal.addEventListener("click", (e) => {
+            if (e.target === settingsModal) {
+                settingsModal.classList.remove("active");
+            }
+        });
+    }
+
+    // Simpan API Key
     if (saveApiKeyBtn) {
         saveApiKeyBtn.addEventListener("click", () => {
             const key = apiKeyInput.value.trim();
@@ -91,77 +74,60 @@ if (modalContent && !document.getElementById("apiTutorialBox")) {
         });
     }
 
-    if (openSettingsBtn) openSettingsBtn.addEventListener("click", bukaPengaturan);
-    if (closeSettingsBtn) closeSettingsBtn.addEventListener("click", () => settingsModal.classList.remove("active"));
-    if (settingsModal) {
-        settingsModal.addEventListener("click", (e) => {
-            if (e.target === settingsModal) settingsModal.classList.remove("active");
+    // Logika Tombol Generate Planner
+    const generateBtn = document.getElementById("generateBtn");
+    const nicheInput = document.getElementById("nicheInput");
+    const platformSelect = document.getElementById("platformSelect");
+    const outputArea = document.getElementById("outputArea");
+
+    if (generateBtn) {
+        generateBtn.addEventListener("click", async () => {
+            const apiKey = localStorage.getItem("geminiApiKey");
+            const selectedModel = localStorage.getItem("geminiSelectedModel") || "gemini-3.8-flash";
+            const niche = nicheInput.value.trim();
+            const platform = platformSelect.value;
+
+            if (!apiKey) {
+                alert("⚠️ API Key belum diatur! Silakan klik 'API Key' di pojok kanan atas.");
+                if (settingsModal) settingsModal.classList.add("active");
+                return;
+            }
+            if (!niche) {
+                alert("⚠️ Niche atau tema konten masih kosong!");
+                return;
+            }
+
+            generateBtn.innerHTML = `<i class='fa-solid fa-spinner fa-spin'></i> Menyusun Jadwal...`;
+            generateBtn.disabled = true;
+            outputArea.innerHTML = "AI sedang menyusun content planner terbaik untukmu...";
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        contents: [{ 
+                            parts: [{ 
+                                text: `Buatlah content planner atau jadwal pembuatan konten yang terstruktur rapi untuk:\n- Niche/Tema: "${niche}"\n- Target & Periode: "${platform}"\nBerikan ide judul, format video, sudut pandang hook, dan catatan eksekusi harian.` 
+                            }] 
+                        }] 
+                    })
+                });
+
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error?.message || "Kesalahan tidak dikenal.");
+                if (!data.candidates || data.candidates.length === 0) throw new Error("Tidak ada hasil.");
+
+                const resultText = data.candidates[0].content.parts[0].text;
+                outputArea.innerHTML = `<div style="text-align: left; font-size: 12px; color: var(--text-main); line-height: 1.6;"><strong style="color: var(--accent-blue);"><i class="fa-solid fa-circle-check"></i> Content Planner Berhasil Dibuat:</strong><br><br>${resultText.replace(/\n/g, '<br>')}</div>`;
+
+            } catch (error) {
+                outputArea.innerHTML = `<span style="color: #ff4444;">❌ GAGAL MEMPROSES:\n\n${error.message}</span>`;
+            } finally {
+                generateBtn.innerHTML = `<i class="fa-solid fa-calendar-days"></i> Buat Content Planner`;
+                generateBtn.disabled = false;
+            }
         });
     }
-
-    generatePlannerBtn.addEventListener("click", async () => {
-        const apiKey = localStorage.getItem("geminiApiKey");
-        const selectedModel = localStorage.getItem("geminiSelectedModel") || "gemini-3.8-flash";
-        const niche = nicheInput.value.trim();
-
-        if (!apiKey) {
-            alert("⚠️ API Key belum diatur! Silakan klik 'Atur Key' di pojok kanan atas.");
-            bukaPengaturan();
-            return;
-        }
-        if (!niche) {
-            alert("⚠️ Niche atau kategori konten masih kosong!");
-            return;
-        }
-
-        generatePlannerBtn.innerHTML = `<i class='fa-solid fa-spinner fa-spin'></i> Menyusun Kalender 30 Hari...`;
-        generatePlannerBtn.disabled = true;
-        outputArea.value = "AI sedang merancang jadwal konten beruntun selama 30 hari... (Tunggu sebentar)";
-
-        const promptSystem = `Kamu adalah manajer konten profesional dan content planner handal. Berdasarkan niche/kategori: "${niche}", buatkan kalender dan daftar ide konten video pendek (Reels/TikTok/Shorts) secara lengkap dari Hari ke-1 hingga Hari ke-30 agar kreator tidak kehabisan bahan.
-
-Berikan hasil HANYA dalam format berikut tanpa basa-basi:
-
-[JADWAL KONTEN 30 HARI: ${niche.toUpperCase()}]
-
-Hari 1: [Judul/Ide] - (Format/Hook singkat)
-Hari 2: [Judul/Ide] - (Format/Hook singkat)
-Hari 3: [Judul/Ide] - (Format/Hook singkat)
-(Lanjutkan berurutan sampai Hari 30 secara rapi dan padat)`;
-
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: promptSystem }] }] })
-            });
-
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error?.message || "Kesalahan tidak dikenal.");
-            if (!data.candidates || data.candidates.length === 0) throw new Error("Tidak ada hasil.");
-
-            outputArea.value = data.candidates[0].content.parts[0].text;
-
-        } catch (error) {
-            outputArea.value = `❌ GAGAL MEMPROSES:\n\n${error.message}`;
-        } finally {
-            generatePlannerBtn.innerHTML = "<i class='fa-solid fa-calendar-days'></i> Buat Jadwal Konten 30 Hari";
-            generatePlannerBtn.disabled = false;
-        }
-    });
-
-    copyBtn.addEventListener("click", async () => {
-        if (!outputArea.value || outputArea.value.startsWith("❌")) return;
-        try { await navigator.clipboard.writeText(outputArea.value); alert("Teks berhasil disalin!"); } 
-        catch (err) { alert("Gagal menyalin teks."); }
-    });
-
-    downloadBtn.addEventListener("click", () => {
-        if (!outputArea.value || outputArea.value.startsWith("❌")) return;
-        const blob = new Blob([outputArea.value], { type: "text/plain" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = `ContentPlanner30Hari_${new Date().getTime()}.txt`;
-        a.click();
-    });
 });
+                                
