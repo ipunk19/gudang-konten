@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const tutorialDiv = document.createElement("div");
         tutorialDiv.id = "apiTutorialBox";
         tutorialDiv.style.cssText = "text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 11px; color: var(--text-muted); line-height: 1.5;";
-        tutorialDiv.innerHTML = `
                 tutorialDiv.innerHTML = `
             <p style="font-weight: bold; color: var(--accent-yellow); margin-bottom: 6px; font-size: 12px;">
                 <i class="fa-solid fa-circle-question"></i> Belum punya API Key?
@@ -157,4 +156,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-    
