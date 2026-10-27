@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiKeyInput = document.getElementById("apiKey");
     const modelSelect = document.getElementById("modelSelect");
 
-    // Muat data tersimpan
+    let rawGeneratedText = ""; // Untuk fitur salin & unduh
+
     try {
         if (localStorage.getItem("geminiApiKey") && apiKeyInput) {
             apiKeyInput.value = localStorage.getItem("geminiApiKey");
@@ -33,28 +34,18 @@ document.addEventListener("DOMContentLoaded", () => {
         updateApiStatusUI();
     } catch (e) {}
 
-    // Tombol Buka/Tutup Modal Settings
     if (openSettingsBtn && settingsModal) {
-        openSettingsBtn.addEventListener("click", () => {
-            settingsModal.classList.add("active");
-        });
+        openSettingsBtn.addEventListener("click", () => settingsModal.classList.add("active"));
     }
-
     if (closeSettingsBtn && settingsModal) {
-        closeSettingsBtn.addEventListener("click", () => {
-            settingsModal.classList.remove("active");
-        });
+        closeSettingsBtn.addEventListener("click", () => settingsModal.classList.remove("active"));
     }
-
     if (settingsModal) {
         settingsModal.addEventListener("click", (e) => {
-            if (e.target === settingsModal) {
-                settingsModal.classList.remove("active");
-            }
+            if (e.target === settingsModal) settingsModal.classList.remove("active");
         });
     }
 
-    // Simpan API Key
     if (saveApiKeyBtn) {
         saveApiKeyBtn.addEventListener("click", () => {
             const key = apiKeyInput.value.trim();
@@ -71,6 +62,37 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (error) {
                 alert("❌ Gagal menyimpan: " + error.message);
             }
+        });
+    }
+
+    // Tombol Salin & Unduh
+    const copyBtn = document.getElementById("copyBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+            if (!rawGeneratedText) return;
+            navigator.clipboard.writeText(rawGeneratedText).then(() => {
+                copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color: #00ffcc;"></i> Tersalin!`;
+                setTimeout(() => {
+                    copyBtn.innerHTML = `<i class="fa-solid fa-copy"></i> Salin`;
+                }, 2000);
+            });
+        });
+    }
+
+    if (downloadBtn) {
+        downloadBtn.addEventListener("click", () => {
+            if (!rawGeneratedText) return;
+            const blob = new Blob([rawGeneratedText], { type: "text/markdown;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `Content-Planner-${document.getElementById("nicheInput").value.trim().replace(/\s+/g, '-') || 'Kreator'}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         });
     }
 
@@ -99,7 +121,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             generateBtn.innerHTML = `<i class='fa-solid fa-spinner fa-spin'></i> Menyusun Jadwal...`;
             generateBtn.disabled = true;
-            outputArea.innerHTML = "AI sedang menyusun content planner terbaik untukmu...";
+            outputArea.innerHTML = "AI sedang menyusun jadwal content planner lengkap (pastikan koneksi stabil)...";
+            if (copyBtn) copyBtn.style.display = "none";
+            if (downloadBtn) downloadBtn.style.display = "none";
+
+            const promptText = `Buatlah content planner atau jadwal pembuatan konten yang sangat terstruktur, lengkap, dan mendalam untuk:
+- Niche/Tema: "${niche}"
+- Target & Periode: "${platform}"
+
+PENTING: Jika periode yang dipilih adalah bulanan, buatlah jadwal lengkap untuk Minggu 1, Minggu 2, Minggu 3, dan Minggu 4 tanpa terpotong. Berikan ide judul, format video, sudut pandang hook (pemancing penonton), dan catatan eksekusi harian secara detail.`;
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
@@ -107,10 +137,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
                         contents: [{ 
-                            parts: [{ 
-                                text: `Buatlah content planner atau jadwal pembuatan konten yang terstruktur rapi untuk:\n- Niche/Tema: "${niche}"\n- Target & Periode: "${platform}"\nBerikan ide judul, format video, sudut pandang hook, dan catatan eksekusi harian.` 
-                            }] 
-                        }] 
+                            parts: [{ text: promptText }] 
+                        }],
+                        generationConfig: {
+                            maxOutputTokens: 4096 // Memperbesar batas output agar teks bulanan tidak terpotong di tengah jalan
+                        }
                     })
                 });
 
@@ -118,8 +149,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!response.ok) throw new Error(data.error?.message || "Kesalahan tidak dikenal.");
                 if (!data.candidates || data.candidates.length === 0) throw new Error("Tidak ada hasil.");
 
-                const resultText = data.candidates[0].content.parts[0].text;
-                outputArea.innerHTML = `<div style="text-align: left; font-size: 12px; color: var(--text-main); line-height: 1.6;"><strong style="color: var(--accent-blue);"><i class="fa-solid fa-circle-check"></i> Content Planner Berhasil Dibuat:</strong><br><br>${resultText.replace(/\n/g, '<br>')}</div>`;
+                rawGeneratedText = data.candidates[0].content.parts[0].text;
+                outputArea.innerHTML = `<div style="text-align: left; font-size: 12px; color: var(--text-main); line-height: 1.6;"><strong style="color: var(--accent-blue);"><i class="fa-solid fa-circle-check"></i> Content Planner Berhasil Dibuat:</strong><br><br>${rawGeneratedText.replace(/\n/g, '<br>')}</div>`;
+
+                // Munculkan tombol Salin & Unduh
+                if (copyBtn) copyBtn.style.display = "inline-flex";
+                if (downloadBtn) downloadBtn.style.display = "inline-flex";
 
             } catch (error) {
                 outputArea.innerHTML = `<span style="color: #ff4444;">❌ GAGAL MEMPROSES:\n\n${error.message}</span>`;
@@ -130,4 +165,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-                                
