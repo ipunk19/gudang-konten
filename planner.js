@@ -123,17 +123,19 @@ document.addEventListener("DOMContentLoaded", () => {
             if (copyBtn) copyBtn.style.display = "none";
             if (downloadBtn) downloadBtn.style.display = "none";
 
-            const promptText = `Buatlah content planner atau jadwal pembuatan konten yang sangat terstruktur, mendalam, dan TUNTAS untuk tepat 7 hari (Senin sampai Minggu):
+            const promptText = `Buatlah content planner atau jadwal pembuatan konten yang TUNTAS untuk tepat 7 hari (Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu):
 - Niche/Tema: "${niche}"
 - Target Platform: "${platform}"
 
-INSTRUKSI UTAMA:
-Berikan jadwal lengkap secara berurutan mulai dari Hari Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, hingga Minggu tanpa terpotong. Untuk setiap hari, wajib mencakup:
-1. Judul Konten yang menarik
-2. Format & Sudut Pandang (Hook)
-3. Catatan Eksekusi Visual / Audio
+INSTRUKSI FORMAT:
+Buat secara ringkas, padat, dan jelas untuk masing-masing hari dari Senin sampai Minggu tanpa terpotong. 
+Setiap hari wajib mencantumkan:
+1. **Judul Konten:** ...
+2. **Format / Visual:** ...
+3. **Hook / Sudut Pandang:** ...
+4. **Catatan Eksekusi:** ...
 
-Pastikan teks diakhiri dengan tuntas sampai hari Minggu!`;
+Pastikan teks mencakup semua hari secara berurutan dan diakhiri dengan tuntas sampai hari Minggu!`;
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
@@ -144,7 +146,7 @@ Pastikan teks diakhiri dengan tuntas sampai hari Minggu!`;
                             parts: [{ text: promptText }] 
                         }],
                         generationConfig: {
-                            maxOutputTokens: 3048
+                            maxOutputTokens: 8192 // Kapasitas maksimal agar dijamin tidak terpotong
                         }
                     })
                 });
